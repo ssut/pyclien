@@ -3,7 +3,6 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 """
-from clien.api import ClienAPI
 
 class ClienAPI(object):
     """클리앙 API 클래스.
