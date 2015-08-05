@@ -6,6 +6,7 @@
 import requests
 
 from clien.api import ClienAPI
+from clien.constants import CLIENM_URL
 
 class Session(ClienAPI):
     """클리앙 세션 객체.
