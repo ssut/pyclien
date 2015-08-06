@@ -12,6 +12,7 @@ class CLIENM_URI(object):
     """클리앙 URI들"""
 
     SIGNIN = 'https://www.clien.net/cs2/bbs/login_check.php'
+    PROFILE = 'www.clien.net/cs2/bbs/profile.php?mb_id={username}'
 
 
 class REGEXP(object):
