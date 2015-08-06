@@ -59,6 +59,22 @@ class ClienAPI(object):
             result = self.check_logged(r.text)
             self.session = session
 
+        # 로그인 아이디 가져오기
+        if sessionpath and result:
+            r = self.session.get(CLIENM_URL)
+            r.encoding = 'utf-8'
+            try:
+                content = BeautifulSoup(r.text, 'lxml')
+                script = content.select('header + div + script')[0].string
+            except:
+                result = False
+                reason = u'로그인 계정을 가져오지 못했습니다.'
+            else:
+                username = REGEXP.SCRIPT_ISLOGIN.search(script).groups()[0]
+                self.username = username
+        else:
+            self.username = username
+
         return (result, reason, )
 
     def check_logged(self, content=None):
@@ -72,6 +88,8 @@ class ClienAPI(object):
             r = self.session.get(CLIENM_URL)
             r.encoding = 'utf-8'
             content = r.text
+
+        # 로그인 직후 시도했을 때
         if '?nowlogin=1' in content:
             result = True
         else:

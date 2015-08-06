@@ -18,3 +18,4 @@ class REGEXP(object):
     """정규식"""
 
     ALERT_CONTENT = re.compile(r'alert\(\'?\"?([^\"\']+)', re.MULTILINE)
+    SCRIPT_ISLOGIN = re.compile(r'var isLogin = \"([^\"]+)', re.MULTILINE)
