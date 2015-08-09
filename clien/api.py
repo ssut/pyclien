@@ -74,6 +74,7 @@ class ClienAPI(object):
                 self.username = username
         else:
             self.username = username
+        self.update_profile()
 
         return (result, reason, )
 
@@ -105,3 +106,31 @@ class ClienAPI(object):
                 result = True
 
         return result
+
+    def update_profile(self):
+        """로그인된 계정의 정보를 업데이트합니다."""
+        assert self.username
+
+    def get_userinfo(self, username):
+        """특정 사용자의 정보를 가져옵니다.
+
+        :param str username: 사용자 아이디
+        """
+        assert self.session
+
+        result = False
+        reason = ''
+
+        url = CLIENM_URI.PROFILE.format(username=username)
+        r = self.session.get(url)
+        r.encoding = 'utf-8'
+        alerts = REGEXP.ALERT_CONTENT.search(r.text)
+        if alerts:
+            reason = alerts.groups()[0]
+        else:
+            content = BeautifulSoup(r.text, 'lxml')
+            nick = content.select('body > table')[0].select('span.member')[0].string
+            rows = content.select('body > table')[1].select('table')[2].select('tr td')
+            
+
+        return (result, reason, )
