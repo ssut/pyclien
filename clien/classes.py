@@ -5,7 +5,15 @@
 """
 
 class ClienProfile(object):
-    pass
+    """클리앙 유저 프로필"""
+
+    def __init__(self, username='', nickname='', level=0, point=0, since=None, last_logged=None):
+        self.username = username
+        self.nickname = nickname
+        self.level = level
+        self.point = point
+        self.since = since
+        self.last_logged = last_logged
 
 
 class ClienArticle(object):
