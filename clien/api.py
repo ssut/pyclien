@@ -5,6 +5,7 @@
 """
 import os
 import pickle
+from datetime import datetime
 
 import requests
 from bs4 import BeautifulSoup
@@ -12,6 +13,8 @@ from bs4 import BeautifulSoup
 from clien.constants import CLIENM_URL, CLIENM_URI
 from clien.constants import REGEXP
 from clien.dev import report
+from clien.classes import ClienProfile
+from clien.utils import intfromstr
 
 class ClienAPI(object):
     """클리앙 API 클래스.
@@ -110,6 +113,8 @@ class ClienAPI(object):
     def update_profile(self):
         """로그인된 계정의 정보를 업데이트합니다."""
         assert self.username
+        self.profile = self.get_userinfo(self.username)
+        return self.profile
 
     def get_userinfo(self, username):
         """특정 사용자의 정보를 가져옵니다.
@@ -131,6 +136,17 @@ class ClienAPI(object):
             content = BeautifulSoup(r.text, 'lxml')
             nick = content.select('body > table')[0].select('span.member')[0].string
             rows = content.select('body > table')[1].select('table')[2].select('tr td')
-            
+            since, last_logged = rows[7].string.split(' : ')[-1], rows[10].string.split(' : ')[-1]
+            since = datetime.strptime(since, r'%Y-%m-%d')
+            last_logged = datetime.strptime(last_logged, r'%Y-%m-%d %H:%M:%S')
+            info = {
+                'username': username,
+                'nickname': nick,
+                'level': intfromstr(rows[1].string),
+                'point': intfromstr(rows[4].string),
+                'since': since,
+                'last_logged': last_logged,
+            }
+            result = ClienProfile(**info)
 
         return (result, reason, )
