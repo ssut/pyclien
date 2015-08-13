@@ -21,6 +21,7 @@ def main():
     else:
         success, reason = clien.login(sessionpath='session.tmp')
     print(u'로그인 결과:', success)
+    print(u'프로필:', clien.profile)
 
 
 if __name__ == '__main__':
