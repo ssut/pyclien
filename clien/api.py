@@ -113,10 +113,10 @@ class ClienAPI(object):
     def update_profile(self):
         """로그인된 계정의 정보를 업데이트합니다."""
         assert self.username
-        self.profile = self.get_userinfo(self.username)
+        self.profile = self.get_profile(self.username)
         return self.profile
 
-    def get_userinfo(self, username):
+    def get_profile(self, username):
         """특정 사용자의 정보를 가져옵니다.
 
         :param str username: 사용자 아이디
