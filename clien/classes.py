@@ -15,6 +15,8 @@ class ClienProfile(object):
         self.since = since
         self.last_logged = last_logged
 
+    def __repr__(self):
+        return "<Profile %s(%s)>" % (self.username, self.nickname, )
 
 class ClienArticle(object):
     pass
