@@ -13,6 +13,7 @@ class CLIENM_URI(object):
 
     SIGNIN = 'https://www.clien.net/cs2/bbs/login_check.php'
     PROFILE = 'http://www.clien.net/cs2/bbs/profile.php?mb_id={username}'
+    CMLIST = CLIENM_URL + '/cmMain/index'
 
 
 class REGEXP(object):
