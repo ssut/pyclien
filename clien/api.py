@@ -150,3 +150,18 @@ class ClienAPI(object):
             result = ClienProfile(**info)
 
         return (result, reason, )
+
+    def cm_list(self):
+        """소모임 목록을 가져옵니다."""
+        result = {}
+
+        r = self.session.get(CLIENM_URI.CMLIST)
+        r.encoding = 'utf-8'
+        content = BeautifulSoup(r.text, 'lxml')
+        cmlist = content.select('div.nav_index ul.nav_club li a')
+        for cm in cmlist:
+            cmid = cm.attrs['href'].split('=')[-1]
+            cmname = cm.contents[-1]
+            result[cmid] = cmname
+
+        return result
