@@ -23,6 +23,8 @@ def main():
     print(u'로그인 결과:', success)
     print(u'프로필:', clien.profile)
 
+    print(clien.cm_list())
+
 
 if __name__ == '__main__':
     main()
