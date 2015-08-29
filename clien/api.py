@@ -165,3 +165,23 @@ class ClienAPI(object):
             result[cmid] = cmname
 
         return result
+
+    def cm_favs(self):
+        """자주가는 소모임 목록을 가져옵니다.
+
+        :rtype: list of strings"""
+        result = []
+
+        r = self.session.get(CLIENM_URL)
+        r.encoding = 'utf-8'
+        content = BeautifulSoup(r.text, 'lxml')
+        favs = content.select('ul.nav_snb_club li a')
+        size = len(favs) - 1
+        for i, fav in enumerate(favs):
+            if i == size: break
+            fav = fav.attrs['href'].split('=')[-1]
+            result.append(fav)
+
+        return result
+
+
